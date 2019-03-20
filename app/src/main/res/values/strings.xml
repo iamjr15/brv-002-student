@@ -1,0 +1,58 @@
+<resources>
+    <string name="app_name">TestAppStudent</string>
+    <string name="text_ok">Ok</string>
+    <string name="text_testapp">testapp.</string>
+    <string name="text_students">students</string>
+    <string name="text_login">Login</string>
+    <string name="text_signup">Signup</string>
+    <string name="text_test_app">Test App</string>
+
+
+    <!--login-->
+    <string name="text_contact_number">Contact number</string>
+    <string name="text_password">Password</string>
+    <string name="text_first_name">First name</string>
+    <string name="text_last_name">Last name</string>
+    <string name="text_i_am_a">i\'am a</string>
+    <string name="text_male">Male</string>
+    <string name="text_female">Female</string>
+    <string name="text_class">Class</string>
+    <string name="text_section">Section</string>
+    <string name="text_next">Next</string>
+    <string name="text_verify_contact_number">Verify contact number</string>
+    <string name="text_enter_otp">enter OTP</string>
+    <string name="text_resent_code">Resend code</string>
+    <string name="text_message">message</string>
+    <string name="text_home">Home</string>
+    <string name="text_account">Account</string>
+    <string name="text_school">school</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_report_bullying">Report bullying.</string>
+    <string name="text_anonymously_send_a_bullying_report_to_your_school_counsellor">anonymously send a bullying report to your school counsellor.</string>
+    <string name="text_please_enter_first_name">Please enter First name.</string>
+    <string name="text_please_enter_last_name">Please enter Last name.</string>
+    <string name="text_please_select_gender">Please select Gender.</string>
+    <string name="text_please_enter_contact_number">Please enter Contact number.</string>
+    <string name="text_please_enter_password">Please enter Password.</string>
+    <string name="text_please_enter_password_length">Password must be 6 charater long.</string>
+    <string name="text_please_select_school">Please select School.</string>
+    <string name="text_no_school">No schools found.</string>
+    <string name="text_please_enter_class">Please enter Class.</string>
+    <string name="text_please_enter_section">Please enter Section.</string>
+    <string name="text_hey">Hey</string>
+    <string name="text_internet">No internet connection. please check your network settings and try again.</string>
+
+    <string name="text_login_error">Invalid Mobile number or password</string>
+    <string name="text_succesfully_register">Successfully register</string>
+    <string name="text_mobile_already_register">Number Already Register</string>
+
+    <string name="text_wrong_otp">You enter wrong OTP, please check SMS that you received.</string>
+    <string name="text_otp_check_in_sms">OTP sent successfully, please check SMS.</string>
+    <string name="text_verified_sucessfully">verified successfully</string>
+    <string name="text_pleade_enter_otp">Please enter OTP</string>
+    <string name="text_sign_out">Sign out</string>
+
+    <string name="text_server_error">Something went wrong, please try again.</string>
+</resources>

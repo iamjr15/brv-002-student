@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_message"
+        android:checked="true"
+        android:icon="@drawable/ic_email_icon"
+        android:title="@string/text_message"
+        app:showAsAction="ifRoom"
+
+        />
+    <item
+        android:id="@+id/action_home"
+        android:checked="true"
+        android:icon="@drawable/ic_home_icon"
+        android:title="@string/text_home"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_account"
+        android:checked="true"
+        android:icon="@drawable/ic_user_icon"
+        android:title="@string/text_account"
+        app:showAsAction="ifRoom" />
+</menu>

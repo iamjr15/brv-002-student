@@ -1,0 +1,218 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- <item name="android:navigationBarColor">@color/colorPrimaryDark</item>-->
+        <item name="android:windowContentOverlay">@null</item>
+
+    </style>
+
+
+
+    <style name="AppThemeForTransparentStatusBarActivity" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+
+    <style name="SplashActivityWithBGImageBackground" parent="AppThemeForTransparentStatusBarActivity" />
+
+
+    <style name="ActivityWithBGImageBackground" parent="AppThemeForTransparentStatusBarActivity">
+        <item name="android:windowBackground">@color/colorPrimary</item>
+    </style>
+
+
+    <style name="AppThemeLogin" parent="AppTheme">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/colorGray</item>
+    </style>
+
+    <style name="DialogTransparent" parent="AppTheme">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowTitleStyle">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="DialogTransparentBG" parent="AppTheme">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowTitleStyle">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustResize</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+
+
+
+    <!--progress bar-->
+    <style name="LoginLinearProgress" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:progressBackgroundTint">@color/colorAccent</item>
+    </style>
+
+    <!--progress bar-->
+    <style name="GeneralLinearProgress" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/colorGray</item>
+        <item name="android:progressBackgroundTint">@color/colorGray</item>
+    </style>
+
+    <style name="TextViewLarge" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/font_22sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="TextViewExtraLarge" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/font_30sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+
+    <style name="TextViewRegular" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/font_18sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="TextViewMedium" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/font_16sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="TextViewSmall" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/font_14sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="TextViewExtraSmall" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/font_10sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+
+    <style name="BoldTextViewLarge" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/font_22sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+    </style>
+
+    <style name="BoldTextViewExtraLarge" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/font_30sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+    </style>
+
+
+    <style name="BoldTextViewRegular" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/font_18sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+    </style>
+
+    <style name="BoldTextViewMedium" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/font_16sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+    </style>
+
+    <style name="BoldTextViewSmall" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/font_14sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+    </style>
+
+    <style name="BoldTextViewExtraSmall" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/font_10sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+    </style>
+
+
+    <!--primary color TextView -->
+    <style name="PrimaryTextViewExtraLarge" parent="TextViewExtraLarge">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="PrimaryTextViewLarge" parent="TextViewLarge">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="PrimaryTextViewRegular" parent="TextViewRegular">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="PrimaryTextViewMedium" parent="TextViewMedium">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="PrimaryTextViewSmall" parent="TextViewSmall">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="PrimaryTextViewExtraSmall" parent="TextViewExtraSmall">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+
+    <style name="PrimaryButton" parent="@android:style/Widget.Button">
+        <item name="android:textSize">@dimen/font_14sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:padding">@dimen/margin_10dp</item>
+        <item name="android:background">@drawable/bg_button</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/fontBlack</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+    </style>
+
+    <style name="GeneralLinearProgressWhite" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/white</item>
+        <item name="android:progressBackgroundTint">@color/white</item>
+    </style>
+
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+   <!-- <style name="Custom.Widget.SwitchCompat" parent="Widget.MaterialComponents.CompoundButton.Switch" >
+        <item name="android:textColorPrimary">@color/colorDarkGray</item>
+        <item name="android:textSize">@dimen/font_16sp</item>
+        <item name="android:fontFamily">@font/nhaasgrotesktxw02_75bd</item>
+        <item name="android:textColor">@color/colorDarkGray</item>
+    </style>-->
+
+    <style name="PinWidget" />
+
+    <style name="PinWidget.PinView" parent="@android:style/Widget.EditText">
+        <item name="android:background">@null</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+</resources>
