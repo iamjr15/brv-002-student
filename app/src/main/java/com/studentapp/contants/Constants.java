@@ -7,7 +7,8 @@ public class Constants {
     public static String user_data = "user_data";
     public static String user_id = "user_id";
 
-    public static final int FLAG_MESSAGE = 2;
+    //public static final int FLAG_MESSAGE = 2;
+    public static final int FLAG_POLL = 2;
     public static final int FLAG_HOME = 3;
     public static final int FLAG_ACCOUNT = 4;
 
@@ -15,6 +16,9 @@ public class Constants {
     public static final String TBL_SCHOOLS = "schools";
     public static final String TBL_CITIES = "cities";
     public static final String TBL_USERS = "users";
+    public static final String TBL_CLASS = "class";
+    public static final String TBL_DIVISION = "division";
+    public static final String TBL_POLLS = "polls";
 
     //users table fields
     private static final String firstName  = "firstName";

@@ -1,39 +1,46 @@
-package com.studentapp.main.detailedPoll;
+package com.studentapp.main.home.fragments;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.graphics.Color;
+import android.content.Context;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.studentapp.R;
 
-public class DisplayDetailedPollActivity extends AppCompatActivity {
+public class DetailedPollFragment extends Fragment {
 
     private LinearLayout linearLayout;
     private Toast toastMessage;
-    private TextView questionTextView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_detailed_poll);
 
-        Intent intent = getIntent();
-        String question = intent.getStringExtra("data");
+    }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_detailed_poll, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         String arr[] = {"momentum","gravitation","mechanical properties of matter"};
 
-        questionTextView = findViewById(R.id.question);
-        questionTextView.setText(question);
-
-        linearLayout = findViewById(R.id.parentOfOptionTextViews);
+        linearLayout = getView().findViewById(R.id.parentOfOptionTextViews);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         linearLayout.removeAllViews();
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
@@ -43,7 +50,7 @@ public class DisplayDetailedPollActivity extends AppCompatActivity {
 
         for( int i = 0; i < 3; i++ )
         {
-            TextView textView = new TextView(this);
+            TextView textView = new TextView(getContext());
             textView.setText(arr[i]);
             textView.setTextSize(getResources().getDimension(R.dimen.font_20dp));
             textView.setTextColor(getResources().getColor(R.color.colorGray));
@@ -62,7 +69,7 @@ public class DisplayDetailedPollActivity extends AppCompatActivity {
                 if (toastMessage!= null) {
                     toastMessage.cancel();
                 }
-                toastMessage = Toast.makeText(getApplicationContext(), "Button with id =" + id_ +
+                toastMessage = Toast.makeText(getContext(), "Button with id =" + id_ +
                         " is clicked",Toast.LENGTH_SHORT);
                 toastMessage.show();
 
@@ -75,7 +82,7 @@ public class DisplayDetailedPollActivity extends AppCompatActivity {
     }
 
     private void setAllTextColorAsBlack() {
-        if(linearLayout == null) {
+        if (linearLayout == null) {
             return;
         }
 
@@ -86,6 +93,18 @@ public class DisplayDetailedPollActivity extends AppCompatActivity {
             textView.setTextColor(getResources().getColor(R.color.colorGray));
             textView.setBackgroundResource(R.drawable.text_view_rounded_corner);
         }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+    }
+
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
     }
 
 }

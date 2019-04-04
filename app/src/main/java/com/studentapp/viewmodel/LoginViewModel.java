@@ -7,6 +7,7 @@ import com.studentapp.main.signup.model.ModelUser;
 import com.studentapp.model.base.DataWrapper;
 import com.studentapp.repository.LoginRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.lifecycle.AndroidViewModel;
@@ -36,7 +37,7 @@ public class LoginViewModel extends AndroidViewModel {
     /**
      * Expose the LiveData Projects query so the UI can observe it.
      */
-    public LiveData<DataWrapper<List<Schools>>> getSchoolsObservable() {
+    public LiveData<DataWrapper<ArrayList<Schools>>> getSchoolsObservable() {
         return LoginRepository.getInstance().getSchoolsObservable();
     }
 

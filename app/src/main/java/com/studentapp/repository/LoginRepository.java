@@ -1,6 +1,8 @@
 package com.studentapp.repository;
 
 
+import android.util.Log;
+
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.studentapp.App;
 import com.studentapp.R;
@@ -12,7 +14,9 @@ import com.studentapp.utils.LogUtils;
 import com.studentapp.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import androidx.lifecycle.LiveData;
@@ -23,7 +27,7 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class LoginRepository {
     private static LoginRepository loginRepository;
     private MutableLiveData<DataWrapper<ModelUser>> loginData;
-    private MutableLiveData<DataWrapper<List<Schools>>> schoolsData;
+    private MutableLiveData<DataWrapper<ArrayList<Schools>>> schoolsData;
 
     public synchronized static LoginRepository getInstance() {
         if (loginRepository == null) {
@@ -37,7 +41,7 @@ public class LoginRepository {
         return loginData;
     }
 
-    public LiveData<DataWrapper<List<Schools>>> getSchoolsObservable() {
+    public LiveData<DataWrapper<ArrayList<Schools>>> getSchoolsObservable() {
         schoolsData = new MutableLiveData<>();
         return schoolsData;
     }
@@ -81,8 +85,16 @@ public class LoginRepository {
                         if (Objects.requireNonNull(task.getResult()).size() > 0) {
                             for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                                 LogUtils.Print(TAG, document.getId() + " ====> " + document.getData());
+                                Log.d("waste","Data: "+document.getId() + " ====> " + document.getData());
                                 ModelUser modelUser = document.toObject(ModelUser.class);
+
+                                Map<String, Object> map = new HashMap<>();
+                                map = document.getData();
+
                                 modelUser.setUserId(document.getId());
+                                modelUser.setSchoolId(map.get("schoolId").toString());
+                                modelUser.setSection(map.get("section").toString());
+                                modelUser.setStudentClass(map.get("studentClass").toString());
                                 DataWrapper<ModelUser> data = new DataWrapper<>();
                                 data.setData(modelUser);
                                 data.setState(Constants.STATE_SUCCESS);
@@ -106,7 +118,7 @@ public class LoginRepository {
 
 
     public void getSchools() {
-        DataWrapper<List<Schools>> dataWrapper = new DataWrapper<>();
+        DataWrapper<ArrayList<Schools>> dataWrapper = new DataWrapper<ArrayList<Schools>>();
         boolean isError = false;
         if (!Utils.IsInternetOn()) {
             dataWrapper.setErrorMsg(App.getInstance().getString(R.string.text_internet));
@@ -124,18 +136,18 @@ public class LoginRepository {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         if (Objects.requireNonNull(task.getResult()).size() > 0) {
-                            List<Schools> schoolsList = new ArrayList<>();
+                            ArrayList<Schools> schoolsList = new ArrayList<>();
                             for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                                 Schools schools = document.toObject(Schools.class);
                                 schools.setId("" + document.getId());
                                 schoolsList.add(schools);
                             }
-                            DataWrapper<List<Schools>> data = new DataWrapper<>();
+                            DataWrapper<ArrayList<Schools>> data = new DataWrapper<ArrayList<Schools>>();
                             data.setData(schoolsList);
                             data.setState(Constants.STATE_SUCCESS);
                             schoolsData.postValue(data);
                         } else {
-                            DataWrapper<List<Schools>> data = new DataWrapper<>();
+                            DataWrapper<ArrayList<Schools>> data = new DataWrapper<ArrayList<Schools>>();
                             data.setState(Constants.STATE_ERROR);
                             data.setErrorMsg(App.getInstance().getString(R.string.text_no_school));
                             schoolsData.postValue(data);

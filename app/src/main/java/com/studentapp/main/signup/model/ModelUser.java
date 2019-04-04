@@ -1,6 +1,10 @@
 package com.studentapp.main.signup.model;
 
-public class ModelUser {
+import java.io.Serializable;
+
+import lombok.Data;
+
+public class ModelUser implements Serializable {
     private String userId = "";
     private String firstName = "";
     private String lastName = "";

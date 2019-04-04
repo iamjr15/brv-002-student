@@ -1,16 +1,29 @@
 package com.studentapp.main.home;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.studentapp.R;
 import com.studentapp.contants.Constants;
+import com.studentapp.main.detailedPoll.DisplayDetailedPollActivity;
 import com.studentapp.main.home.adapter.ViewPagerAdapter;
 import com.studentapp.main.home.fragments.AccountFragment;
+import com.studentapp.main.home.fragments.DetailedPollFragment;
 import com.studentapp.main.home.fragments.HomeFragment;
 import com.studentapp.main.home.fragments.MessageFragment;
+import com.studentapp.main.home.fragments.PollListFragment;
+import com.studentapp.main.home.interfaces.IPollSelected;
+import com.studentapp.main.home.model.PollsModel;
+import com.studentapp.main.signup.model.ModelUser;
+import com.studentapp.model.base.DataWrapper;
 import com.studentapp.utils.LogUtils;
+
+import java.io.Serializable;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +33,9 @@ import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
+public class HomeActivity extends AppCompatActivity implements
+        BottomNavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener,
+        IPollSelected {
     private static final String TAG = "HomeActivity";
     @BindView(R.id.vp)
     ViewPager vp;
@@ -30,8 +45,11 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     //Tab adapter
     private ViewPagerAdapter adapter;
 
+    private DataWrapper dataWrapper;
+
     HomeFragment homeFragment;
-    MessageFragment messageFragment;
+   // MessageFragment messageFragment;
+    PollListFragment pollListFragment;
     AccountFragment accountFragment;
 
     MenuItem prevMenuItem;
@@ -40,18 +58,25 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         ButterKnife.bind(this);
+        dataWrapper = (DataWrapper) getIntent().getSerializableExtra("userDetails");
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         vp.addOnPageChangeListener(this);
         setupViewPager(vp);
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        messageFragment = new MessageFragment();
+       // messageFragment = new MessageFragment();
+        pollListFragment = new PollListFragment();
+
         Bundle bundle = new Bundle();
-        bundle.putInt(Constants.flag, Constants.FLAG_MESSAGE);
-        messageFragment.setArguments(bundle);
+        bundle.putInt(Constants.flag, Constants.FLAG_POLL);
+        bundle.putSerializable("userDetails", (Serializable) dataWrapper.getData());
+       // messageFragment.setArguments(bundle);
+        pollListFragment.setArguments(bundle);
 
         homeFragment = new HomeFragment();
         bundle = new Bundle();
@@ -64,12 +89,14 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
 //        propertyListFragmentInvoice.setOnHeaderChangeListener(this);
 //        accountFragment.setOnHeaderChangeListener(this);
 
-        adapter.addFragment(messageFragment);
+        //adapter.addFragment(messageFragment);
+        adapter.addFragment(pollListFragment);
+
         adapter.addFragment(homeFragment);
         adapter.addFragment(accountFragment);
 
         viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(4);
         viewPager.setCurrentItem(1);
     }
 
@@ -96,13 +123,17 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public void onPageSelected(int position) {
+        Log.d("waste","position: "+position);
         if (prevMenuItem != null) {
             prevMenuItem.setChecked(false);
         } else {
             bottomNavigationView.getMenu().getItem(1).setChecked(false);
         }
-        bottomNavigationView.getMenu().getItem(position).setChecked(true);
-        prevMenuItem = bottomNavigationView.getMenu().getItem(position);
+
+            bottomNavigationView.getMenu().getItem(position).setChecked(true);
+
+            prevMenuItem = bottomNavigationView.getMenu().getItem(position);
+
         LogUtils.Print(TAG, "onPageSelected:- " + position);
 //        setHeaderTitle(position, getBackStackCount());
 
@@ -129,5 +160,15 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         } else {
             super.onBackPressed();
         }
+    }
+
+
+    @Override
+    public void pollSelected(PollsModel data) {
+        //DetailPage, Poll through Intent
+        Log.d("WASTE","HomeActivity pollSelected");
+        Intent intent = new Intent(this, DisplayDetailedPollActivity.class);
+        intent.putExtra("data", data.getQuestion());
+        startActivity(intent);
     }
 }

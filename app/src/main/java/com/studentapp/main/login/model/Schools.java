@@ -2,7 +2,9 @@ package com.studentapp.main.login.model;
 
 import com.google.firebase.firestore.DocumentReference;
 
-public class Schools {
+import java.io.Serializable;
+
+public class Schools implements Serializable {
 
     String id;
     String pincode;

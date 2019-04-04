@@ -16,6 +16,8 @@ import com.studentapp.contants.Constants;
 import com.studentapp.main.home.HomeActivity;
 import com.studentapp.main.login.model.Schools;
 import com.studentapp.main.otp.Otp;
+import com.studentapp.main.signup.model.ModelUser;
+import com.studentapp.model.base.DataWrapper;
 import com.studentapp.utils.Utils;
 import com.studentapp.viewmodel.LoginViewModel;
 
@@ -112,7 +114,7 @@ public class Login extends AppCompatActivity {
                             boolean isVerified = response.getData().isVerified();
                             Utils.saveUserData(response.getData().getUserId(), response.getData());
                             if (isVerified) {
-                                navigateToHomeActivity();
+                                navigateToHomeActivity(response);
                             } else {
                                 navigateToVerifyActivity();
                             }
@@ -179,7 +181,7 @@ public class Login extends AppCompatActivity {
     /**
      * set schools data
      */
-    private void setSchoolsData(List<Schools> data) {
+    private void setSchoolsData(ArrayList<Schools> data) {
         if (list.size() > 0)
             list.clear();
         if (list_schools.size() > 0)
@@ -214,9 +216,10 @@ public class Login extends AppCompatActivity {
     /**
      * launch home activity
      */
-    private void navigateToHomeActivity() {
+    private void navigateToHomeActivity(DataWrapper<ModelUser> modelUserDataWrapper) {
         Intent intent = new Intent(Login.this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("userDetails",modelUserDataWrapper);
         startActivity(intent);
         finish();
     }

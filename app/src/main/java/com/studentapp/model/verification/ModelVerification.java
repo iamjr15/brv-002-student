@@ -4,10 +4,12 @@ import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 @Data
-public class ModelVerification {
+public class ModelVerification implements Serializable {
     private String verificationId = "";
     private PhoneAuthProvider.ForceResendingToken token = null;
     private PhoneAuthCredential phoneAuthCredential = null;
