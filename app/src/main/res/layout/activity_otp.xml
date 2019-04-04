@@ -27,7 +27,7 @@
                 android:gravity="center"
                 android:text="@string/text_verify_contact_number"
                 android:textColor="@color/fontBlack"
-                android:textSize="@dimen/font_22sp" />
+                android:textSize="@dimen/font_22dp" />
 
             <TextView
                 style="@style/BoldTextViewExtraLarge"
@@ -36,7 +36,7 @@
                 android:gravity="center"
                 android:text="@string/text_enter_otp"
                 android:textColor="@color/fontBlack"
-                android:textSize="@dimen/font_22sp" />
+                android:textSize="@dimen/font_22dp" />
 
             <TextView
                 android:id="@+id/tv_number"
@@ -47,7 +47,7 @@
                 android:gravity="center"
                 android:text=""
                 android:textColor="@color/colorGray"
-                android:textSize="@dimen/font_20sp" />
+                android:textSize="@dimen/font_20dp" />
 
 
             <LinearLayout
@@ -67,7 +67,7 @@
                     android:inputType="number"
                     android:padding="@dimen/margin_20dp"
                     android:textColor="@color/fontBlack"
-                    android:textSize="@dimen/font_16sp"
+                    android:textSize="@dimen/font_16dp"
                     app:cursorColor="@color/colorGray"
                     app:cursorWidth="2dp"
                     app:itemCount="6"
@@ -95,7 +95,7 @@
                 android:paddingEnd="@dimen/margin_30dp"
                 android:text="@string/text_resent_code"
                 android:textAllCaps="false"
-                android:textSize="@dimen/font_16sp" />
+                android:textSize="@dimen/font_16dp" />
 
             <Button
                 android:id="@+id/btn_next"
@@ -110,7 +110,7 @@
                 android:paddingEnd="@dimen/margin_30dp"
                 android:text="@string/text_next"
                 android:textAllCaps="false"
-                android:textSize="@dimen/font_16sp" />
+                android:textSize="@dimen/font_16dp" />
 
 
         </LinearLayout>

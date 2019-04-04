@@ -17,7 +17,7 @@
             android:layout_marginStart="@dimen/margin_20dp"
             android:layout_marginTop="@dimen/margin_30dp"
             android:layout_marginEnd="@dimen/margin_20dp"
-            android:textSize="@dimen/font_24sp"
+            android:textSize="@dimen/font_24dp"
             android:text=""
             android:textColor="@color/fontBlack" />
 

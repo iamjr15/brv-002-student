@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/text_login"
-                android:textSize="@dimen/font_34sp" />
+                android:textSize="@dimen/font_34dp" />
 
             <TextView
                 android:id="@+id/tv_contact_lable"
@@ -105,7 +105,7 @@
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:textColor="@color/colorGray"
-                    android:textSize="@dimen/font_16sp"
+                    android:textSize="@dimen/font_16dp"
                     android:textStyle="normal" />
 
                 <ImageButton
@@ -155,7 +155,7 @@
                     android:paddingEnd="@dimen/margin_30dp"
                     android:text="@string/text_login"
                     android:textAllCaps="false"
-                    android:textSize="@dimen/font_18sp" />
+                    android:textSize="@dimen/font_18dp" />
                 <ProgressBar
                     android:id="@+id/pb"
                     style="?android:attr/progressBarStyleSmall"

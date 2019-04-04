@@ -16,11 +16,6 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".main.detailedPoll.DisplayDetailedPollActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".main.poll.DisplayPoll" />
         <activity
@@ -50,11 +45,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/SplashActivityWithBGImageBackground"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
-            <!--<intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
     </application>
 

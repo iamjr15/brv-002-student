@@ -2,6 +2,7 @@ package com.studentapp.repository;
 
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseException;
@@ -108,12 +109,14 @@ public class VerificationRepository {
             @Override
             public void onVerificationCompleted(PhoneAuthCredential credential) {
                 LogUtils.Print(TAG, "onVerificationCompleted: " + credential);
+                Log.d("waste","onVerificationCompleted: ");
                 signInWithPhoneAuthCredential(credential);
             }
 
             @Override
             public void onVerificationFailed(FirebaseException e) {
                 LogUtils.Print(TAG, "onVerificationFailed" + e);
+                Log.d("waste","onVerificationFailed: "+e);
                 DataWrapper<ModelVerification> dataWrapper = new DataWrapper<>();
                 dataWrapper.setState(Constants.STATE_ERROR);
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
