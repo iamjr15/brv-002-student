@@ -7,7 +7,8 @@
     android:layout_height="wrap_content"
     android:background="@drawable/text_view_rounded_corner"
     android:padding="@dimen/padding_10dp"
-    android:layout_margin="@dimen/padding_10dp">
+    android:layout_margin="@dimen/padding_10dp"
+    android:id="@+id/mainConstraint">
 
     <TextView
         android:id="@+id/pollOwner"

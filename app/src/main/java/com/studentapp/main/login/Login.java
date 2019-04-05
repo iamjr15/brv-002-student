@@ -2,6 +2,7 @@ package com.studentapp.main.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -219,7 +220,6 @@ public class Login extends AppCompatActivity {
     private void navigateToHomeActivity(DataWrapper<ModelUser> modelUserDataWrapper) {
         Intent intent = new Intent(Login.this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("userDetails",modelUserDataWrapper);
         startActivity(intent);
         finish();
     }

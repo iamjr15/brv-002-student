@@ -22,13 +22,18 @@ import com.studentapp.main.home.model.PollsModel;
 import com.studentapp.main.signup.model.ModelUser;
 import com.studentapp.model.base.DataWrapper;
 import com.studentapp.utils.LogUtils;
+import com.studentapp.utils.Utils;
+import com.studentapp.viewmodel.HomeViewModel;
 
 import java.io.Serializable;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,14 +50,16 @@ public class HomeActivity extends AppCompatActivity implements
     //Tab adapter
     private ViewPagerAdapter adapter;
 
-    private DataWrapper dataWrapper;
 
-    HomeFragment homeFragment;
-   // MessageFragment messageFragment;
-    PollListFragment pollListFragment;
-    AccountFragment accountFragment;
+    private HomeFragment homeFragment;
+    private PollListFragment pollListFragment;
+    private AccountFragment accountFragment;
 
-    MenuItem prevMenuItem;
+    private MenuItem prevMenuItem;
+
+    private HomeViewModel homeViewModel;
+    private String studentId, schoolId;
+    private ModelUser modelUser1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,36 +67,45 @@ public class HomeActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_home);
 
         ButterKnife.bind(this);
-        dataWrapper = (DataWrapper) getIntent().getSerializableExtra("userDetails");
+
+        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+
+
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         vp.addOnPageChangeListener(this);
-        setupViewPager(vp);
 
+        studentId = Utils.getString(Constants.STUDENT_ID);
+        schoolId = Utils.getString(Constants.SCHOOL_ID);
+
+        Log.d("waste","UserId: "+ Utils.getString(Constants.STUDENT_ID)+"SchoolId: "+Utils.getString(Constants.SCHOOL_ID));
+        initializeViewModel(homeViewModel);
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-        adapter = new ViewPagerAdapter(getSupportFragmentManager());
-       // messageFragment = new MessageFragment();
-        pollListFragment = new PollListFragment();
+    private void initializeViewModel(HomeViewModel viewModel){
+        viewModel.getUserLiveData(schoolId,studentId).observe(this, new Observer<ModelUser>() {
+            @Override
+            public void onChanged(ModelUser modelUser) {
+                modelUser1 = modelUser;
+                setupViewPager(vp, modelUser);
+                Log.d("waste","modelUser: "+ modelUser.getStudentClass()+"---"+modelUser.getSection());
 
-        Bundle bundle = new Bundle();
-        bundle.putInt(Constants.flag, Constants.FLAG_POLL);
-        bundle.putSerializable("userDetails", (Serializable) dataWrapper.getData());
-       // messageFragment.setArguments(bundle);
-        pollListFragment.setArguments(bundle);
+            }
+        });
+    }
+
+    private void setupViewPager(ViewPager viewPager, ModelUser modelUser) {
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        pollListFragment = PollListFragment.getInstance(modelUser);
 
         homeFragment = new HomeFragment();
+        Bundle bundle = new Bundle();
         bundle = new Bundle();
         bundle.putInt(Constants.flag, Constants.FLAG_HOME);
         homeFragment.setArguments(bundle);
 
         accountFragment = new AccountFragment();
 
-//        propertyListFragmentCalendar.setOnHeaderChangeListener(this);
-//        propertyListFragmentInvoice.setOnHeaderChangeListener(this);
-//        accountFragment.setOnHeaderChangeListener(this);
-
-        //adapter.addFragment(messageFragment);
         adapter.addFragment(pollListFragment);
 
         adapter.addFragment(homeFragment);
@@ -164,11 +180,22 @@ public class HomeActivity extends AppCompatActivity implements
 
 
     @Override
-    public void pollSelected(PollsModel data) {
+    public void pollSelected(PollsModel data, int position) {
         //DetailPage, Poll through Intent
         Log.d("WASTE","HomeActivity pollSelected");
         Intent intent = new Intent(this, DisplayDetailedPollActivity.class);
-        intent.putExtra("data", data.getQuestion());
-        startActivity(intent);
+        intent.putExtra("data", data);
+        intent.putExtra("position",position);
+        startActivityForResult(intent,1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        PollsModel pollsModel = (PollsModel) data.getSerializableExtra("answer");
+        int position = data.getIntExtra("position",-1);
+        //setupViewPager(vp,modelUser1);
+
+        pollListFragment.optionClickedSaved(pollsModel,position);
     }
 }

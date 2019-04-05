@@ -1,6 +1,9 @@
 package com.studentapp.main.home.model;
 
+import com.google.firebase.firestore.Exclude;
+
 import java.io.Serializable;
+import java.util.List;
 
 public class PollsModel implements Serializable {
 
@@ -8,7 +11,10 @@ public class PollsModel implements Serializable {
     private String question;
     private String standardClass;
     private String division;
-    private String options;
+    private List<String> options;
+
+    @Exclude
+    private boolean isAnswered = false;
 
     public PollsModel() {
     }
@@ -45,11 +51,19 @@ public class PollsModel implements Serializable {
         this.division = division;
     }
 
-    public String getOptions() {
+    public List<String> getOptions() {
         return options;
     }
 
-    public void setOptions(String options) {
+    public void setOptions(List<String> options) {
         this.options = options;
+    }
+
+    public boolean isAnswered() {
+        return isAnswered;
+    }
+
+    public void setAnswered(boolean answered) {
+        isAnswered = answered;
     }
 }

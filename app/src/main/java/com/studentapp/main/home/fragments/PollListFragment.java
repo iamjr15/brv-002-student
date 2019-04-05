@@ -21,8 +21,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.studentapp.R;
+import com.studentapp.contants.Constants;
 import com.studentapp.main.home.adapter.PollListAdapter;
 import com.studentapp.main.home.interfaces.IPollSelected;
+import com.studentapp.main.home.interfaces.OptionClickUpdate;
 import com.studentapp.main.home.model.PollsModel;
 import com.studentapp.main.signup.model.ModelUser;
 import com.studentapp.viewmodel.PollListFragmentViewModel;
@@ -32,12 +34,23 @@ import java.util.List;
 
 
 public class PollListFragment extends Fragment
-implements View.OnClickListener {
+implements View.OnClickListener, OptionClickUpdate {
 
     private PollListAdapter pollListAdapter;
     private IPollSelected iPollSelected;
     private PollListFragmentViewModel pollListFragmentViewModel;
+    private  ModelUser modelUser;
+    private List<PollsModel> pollsModelList;
 
+    public static PollListFragment getInstance(ModelUser modelUser){
+
+        PollListFragment pollListFragment = new PollListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(Constants.flag, Constants.FLAG_POLL);
+        bundle.putSerializable(Constants.DATA_USERS,modelUser);
+        pollListFragment.setArguments(bundle);
+        return pollListFragment;
+    }
     public PollListFragment() {
         // Required empty public constructor
     }
@@ -59,14 +72,10 @@ implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        iPollSelected = (IPollSelected) getActivity();
-        List<String> list = new ArrayList<>();
-        list.add("what is your name.?");
-        list.add("what is your favourite color.?");
-        list.add("Have you done your home work.?");
-        list.add("which subject is your favourite.?");
+        Log.d("waste","onViewCreated: ");
 
-        //pollListFragmentViewModel.getPollIdList()
+        iPollSelected = (IPollSelected) getActivity();
+
 
         RecyclerView recyclerView = getView().findViewById(R.id.pollRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
@@ -89,22 +98,46 @@ implements View.OnClickListener {
         iPollSelected = (IPollSelected)activity;
         pollListFragmentViewModel = ViewModelProviders.of(this).get(PollListFragmentViewModel.class);
         Bundle bundle = getArguments();
-        ModelUser modelUser = (ModelUser) bundle.getSerializable("userDetails");
+        modelUser = (ModelUser) bundle.getSerializable(Constants.DATA_USERS);
+        Log.d("waste","onAttach all Information: "+modelUser.getSchoolId()+"---"+modelUser.getStudentClass()+"---"+modelUser.getSection());
+
         pollListFragmentViewModel.getPollIdList(modelUser.getSchoolId(),
                 modelUser.getStudentClass(),modelUser.getSection()).observe(this, new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> list) {
-                Log.d("waste","List of id: "+list.get(0));
+                getAllPollList(list);
+            }
+        });
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    public void getAllPollList(List<String> pollIdList){
+        pollListFragmentViewModel.getPollList(pollIdList,modelUser.getSchoolId())
+                .observe(this, new Observer<List<PollsModel>>() {
+            @Override
+            public void onChanged(List<PollsModel> pollsModels) {
+                pollsModelList = pollsModels;
+                pollListAdapter.updateList(pollsModels);
             }
         });
     }
 
     @Override
     public void onClick(View view) {
-
-
         int position = Integer.parseInt(String.valueOf(view.getTag()));
         Log.d("WASTE","Selected: "+pollListAdapter.getItem(position));
-        iPollSelected.pollSelected(pollListAdapter.getItem(position));
+        iPollSelected.pollSelected(pollListAdapter.getItem(position),position);
+    }
+
+    @Override
+    public void optionClickedSaved(PollsModel pollsModel, int position) {
+       pollsModelList.get(position).setAnswered(true);
+        pollListAdapter.updateList(pollsModelList);
     }
 }

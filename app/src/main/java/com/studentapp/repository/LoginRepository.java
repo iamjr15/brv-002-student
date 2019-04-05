@@ -1,6 +1,8 @@
 package com.studentapp.repository;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -22,7 +24,9 @@ import java.util.Objects;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import static android.content.Context.MODE_PRIVATE;
 import static androidx.constraintlayout.widget.Constraints.TAG;
+import static com.studentapp.contants.Constants.MY_PREFS_NAME;
 
 public class LoginRepository {
     private static LoginRepository loginRepository;
@@ -90,6 +94,9 @@ public class LoginRepository {
 
                                 Map<String, Object> map = new HashMap<>();
                                 map = document.getData();
+
+                                Utils.putString(Constants.STUDENT_ID,document.getId());
+                                Utils.putString(Constants.SCHOOL_ID,map.get(Constants.SCHOOL_ID).toString());
 
                                 modelUser.setUserId(document.getId());
                                 modelUser.setSchoolId(map.get("schoolId").toString());
