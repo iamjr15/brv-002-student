@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.studentapp.R;
 import com.studentapp.contants.Constants;
@@ -41,6 +42,7 @@ implements View.OnClickListener, OptionClickUpdate {
     private PollListFragmentViewModel pollListFragmentViewModel;
     private  ModelUser modelUser;
     private List<PollsModel> pollsModelList;
+    private ProgressBar progressBar;
 
     public static PollListFragment getInstance(ModelUser modelUser){
 
@@ -59,6 +61,8 @@ implements View.OnClickListener, OptionClickUpdate {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
     }
 
     @Override
@@ -71,6 +75,8 @@ implements View.OnClickListener, OptionClickUpdate {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        progressBar = getView().findViewById(R.id.cpb);
+        progressBar.setVisibility(View.VISIBLE);
 
         Log.d("waste","onViewCreated: ");
 
@@ -91,9 +97,11 @@ implements View.OnClickListener, OptionClickUpdate {
 
     }
 
+
     @Override
     public void onAttach(@NonNull Activity activity) {
         super.onAttach(activity);
+
 
         iPollSelected = (IPollSelected)activity;
         pollListFragmentViewModel = ViewModelProviders.of(this).get(PollListFragmentViewModel.class);
@@ -124,6 +132,7 @@ implements View.OnClickListener, OptionClickUpdate {
             public void onChanged(List<PollsModel> pollsModels) {
                 pollsModelList = pollsModels;
                 pollListAdapter.updateList(pollsModels);
+                progressBar.setVisibility(View.GONE);
             }
         });
     }

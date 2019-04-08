@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -46,6 +48,8 @@ public class HomeActivity extends AppCompatActivity implements
     ViewPager vp;
     @BindView(R.id.bottomNavigationView)
     BottomNavigationView bottomNavigationView;
+  /*  @BindView(R.id.cpb)
+    ProgressBar cpb;*/
 
     //Tab adapter
     private ViewPagerAdapter adapter;
@@ -67,6 +71,7 @@ public class HomeActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_home);
 
         ButterKnife.bind(this);
+        //visibleHideProgressBar(true);
 
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
 
@@ -80,6 +85,14 @@ public class HomeActivity extends AppCompatActivity implements
         Log.d("waste","UserId: "+ Utils.getString(Constants.STUDENT_ID)+"SchoolId: "+Utils.getString(Constants.SCHOOL_ID));
         initializeViewModel(homeViewModel);
     }
+
+  /*  private void visibleHideProgressBar(boolean isVisible) {
+        if (isVisible) {
+            cpb.setVisibility(View.VISIBLE);
+        } else {
+            cpb.setVisibility(View.GONE);
+        }
+    }*/
 
     private void initializeViewModel(HomeViewModel viewModel){
         viewModel.getUserLiveData(schoolId,studentId).observe(this, new Observer<ModelUser>() {
@@ -114,6 +127,8 @@ public class HomeActivity extends AppCompatActivity implements
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(4);
         viewPager.setCurrentItem(1);
+        //visibleHideProgressBar(false);
+
     }
 
     @Override
