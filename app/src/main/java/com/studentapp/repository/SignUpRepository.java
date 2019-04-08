@@ -1,10 +1,17 @@
 package com.studentapp.repository;
 
 
+import android.util.Log;
+
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Transaction;
 import com.studentapp.App;
 import com.studentapp.R;
 import com.studentapp.contants.Constants;
@@ -16,6 +23,7 @@ import com.studentapp.utils.Utils;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -124,10 +132,14 @@ public class SignUpRepository {
                 .add(modelUser)
                 .addOnSuccessListener(documentReference -> {
                     modelUser.setUserId(documentReference.getId());
+                    Utils.putString(Constants.STUDENT_ID,modelUser.getUserId());
+                    Utils.putString(Constants.SCHOOL_ID,modelUser.getSchoolId());
+
                     DataWrapper<ModelUser> data = new DataWrapper<>();
                     data.setState(Constants.STATE_SUCCESS);
                     data.setData(modelUser);
                     signupData.postValue(data);
+                    /*incerementStudentCount(modelUser.getSchoolId(), modelUser.getStudentClass(), modelUser.getSection());*/
                 })
                 .addOnFailureListener(e -> {
 
@@ -139,4 +151,32 @@ public class SignUpRepository {
 //                        Utils.makeToast(SignUp.this, "Error while register");
                 });
     }
+
+/*    private void incerementStudentCount(String schoolId,String className, String divisionName){
+
+       DocumentReference documentReference = App.mFirestore.collection(Constants.TBL_SCHOOLS)
+                .document(schoolId)
+                .collection(Constants.TBL_CLASS)
+                .document(className)
+                .collection(Constants.TBL_DIVISION)
+                .document(divisionName);
+
+        App.mFirestore.runTransaction(new Transaction.Function<Integer>() {
+            @Nullable
+            @Override
+            public Integer apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                DocumentSnapshot documentSnapshot = transaction.get(documentReference);
+                int count = documentSnapshot.get("count", Integer.class) == null ? 1 : (documentSnapshot.get("count", Integer.class) + 1);
+
+                return count;
+            }
+
+        }).addOnSuccessListener(new OnSuccessListener<Integer>() {
+            @Override
+            public void onSuccess(Integer integer) {
+                Log.d("WASTE","Student Count updated to: "+integer);
+            }
+        });
+    }*/
+
 }

@@ -2,23 +2,25 @@ package com.studentapp.repository;
 
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.studentapp.App;
 import com.studentapp.contants.Constants;
+import com.studentapp.main.home.interfaces.AnswerdToPoll;
 import com.studentapp.main.home.interfaces.GetAllPoll;
 import com.studentapp.main.home.interfaces.SetIdListOfPolls;
 import com.studentapp.main.home.model.PollsModel;
+import com.studentapp.utils.Utils;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import androidx.annotation.NonNull;
 
 public class PollListFragmentRepository {
 
@@ -81,5 +83,39 @@ public class PollListFragmentRepository {
                                 Log.d("waste", "Error getting documents: ", task.getException());
                             }
                         });
+    }
+
+    public void isAnswerdToPoll(List<PollsModel> pollsModelList, AnswerdToPoll answerdToPoll){
+
+
+        for (int i=0; i<pollsModelList.size(); i++) {
+
+            final PollsModel pollsModel = pollsModelList.get(i);
+
+            int finalI = i;
+            App.mFirestore.collection(Constants.TBL_SCHOOLS).document(
+                    Utils.getString(Constants.SCHOOL_ID))
+                    .collection(Constants.TBL_POLLS).document(pollsModel.getPollId())
+                    .collection(Constants.TBL_ANSWERED_POLLS)
+                    .document(Utils.getString(Constants.STUDENT_ID))
+                    .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                    if (task.getResult().exists()){
+                            pollsModel.setAnswered(true);
+                        }else {
+                            pollsModel.setAnswered(false);
+                        }
+
+                        answerdToPoll.answeredPoll(pollsModelList);
+
+                }
+            });
+
+
+        }
+
+
     }
 }

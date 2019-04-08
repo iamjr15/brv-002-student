@@ -8,8 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.studentapp.App;
 import com.studentapp.R;
+import com.studentapp.contants.Constants;
 import com.studentapp.main.home.model.PollsModel;
+import com.studentapp.utils.Utils;
 
 import java.util.List;
 
@@ -44,7 +47,7 @@ public class PollListAdapter extends RecyclerView.Adapter<PollListAdapter.ViewHo
         if (pollsModel.isAnswered()){
             Log.d("waste123","True");
             holder.itemView.setEnabled(false);
-            holder.constraintLayout.setBackgroundColor(Color.GRAY);
+            holder.constraintLayout.setBackgroundResource(R.drawable.disable_text_view_rounded_corner);
         }
 
         holder.question.setText(pollsModel.getQuestion());

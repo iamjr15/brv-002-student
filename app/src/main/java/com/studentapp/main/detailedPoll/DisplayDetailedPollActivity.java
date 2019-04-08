@@ -114,6 +114,7 @@ public class DisplayDetailedPollActivity extends AppCompatActivity {
         pollMap.put("studentId",Utils.getString(Constants.STUDENT_ID));
         pollMap.put("option", selectedOption);
 
+
         displayDetailedPollViewModel.insertAnsweredOptionInPoll(pollMap,
                 Utils.getString(Constants.SCHOOL_ID),pollsModel.getPollId())
                 .observe(this, new Observer<Boolean>() {

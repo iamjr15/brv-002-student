@@ -1,6 +1,7 @@
 package com.studentapp.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.studentapp.main.home.interfaces.GetUser;
 import com.studentapp.main.signup.model.ModelUser;
@@ -21,6 +22,7 @@ public class HomeViewModel extends AndroidViewModel implements GetUser {
     }
 
     public LiveData<ModelUser> getUserLiveData(String schoolId, String studentId){
+        Log.d("WASTE","schoolId:: "+schoolId+ " studentId: "+studentId);
         new HomeRepository().getUserForSpecificId(this,schoolId,studentId);
         return userLiveData;
     }

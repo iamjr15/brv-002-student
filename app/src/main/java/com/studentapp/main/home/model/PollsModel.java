@@ -3,6 +3,7 @@ package com.studentapp.main.home.model;
 import com.google.firebase.firestore.Exclude;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 public class PollsModel implements Serializable {
@@ -65,5 +66,17 @@ public class PollsModel implements Serializable {
 
     public void setAnswered(boolean answered) {
         isAnswered = answered;
+    }
+
+    @Override
+    public String toString() {
+        return "PollsModel{" +
+                "pollId='" + pollId + '\'' +
+                ", question='" + question + '\'' +
+                ", standardClass='" + standardClass + '\'' +
+                ", division='" + division + '\'' +
+                ", options=" + options +
+                ", isAnswered=" + isAnswered +
+                '}';
     }
 }

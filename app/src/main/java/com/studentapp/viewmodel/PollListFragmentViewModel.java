@@ -1,7 +1,9 @@
 package com.studentapp.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
+import com.studentapp.main.home.interfaces.AnswerdToPoll;
 import com.studentapp.main.home.interfaces.GetAllPoll;
 import com.studentapp.main.home.interfaces.SetIdListOfPolls;
 import com.studentapp.main.home.model.PollsModel;
@@ -14,7 +16,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-public class PollListFragmentViewModel extends AndroidViewModel implements SetIdListOfPolls, GetAllPoll {
+public class PollListFragmentViewModel extends AndroidViewModel implements SetIdListOfPolls, GetAllPoll, AnswerdToPoll {
 
     private MutableLiveData<List<String>> pollIdList;
     private MutableLiveData<List<PollsModel>> pollList;
@@ -42,6 +44,11 @@ public class PollListFragmentViewModel extends AndroidViewModel implements SetId
 
     @Override
     public void getPollListForSpecificStudent(List<PollsModel> pollsModelList) {
-        pollList.postValue(pollsModelList);
+        new PollListFragmentRepository().isAnswerdToPoll(pollsModelList,this);
+    }
+
+    @Override
+    public void answeredPoll(List<PollsModel> pollsModelsList) {
+        pollList.postValue(pollsModelsList);
     }
 }
