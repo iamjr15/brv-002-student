@@ -102,7 +102,6 @@ implements View.OnClickListener, OptionClickUpdate {
     public void onAttach(@NonNull Activity activity) {
         super.onAttach(activity);
 
-
         iPollSelected = (IPollSelected)activity;
         pollListFragmentViewModel = ViewModelProviders.of(this).get(PollListFragmentViewModel.class);
         Bundle bundle = getArguments();

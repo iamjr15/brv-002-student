@@ -13,6 +13,7 @@ public class PollsModel implements Serializable {
     private String standardClass;
     private String division;
     private List<String> options;
+    private String teacherName;
 
     @Exclude
     private boolean isAnswered = false;
@@ -68,6 +69,14 @@ public class PollsModel implements Serializable {
         isAnswered = answered;
     }
 
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
+    }
+
     @Override
     public String toString() {
         return "PollsModel{" +
@@ -76,6 +85,7 @@ public class PollsModel implements Serializable {
                 ", standardClass='" + standardClass + '\'' +
                 ", division='" + division + '\'' +
                 ", options=" + options +
+                ", teacherName='" + teacherName + '\'' +
                 ", isAnswered=" + isAnswered +
                 '}';
     }

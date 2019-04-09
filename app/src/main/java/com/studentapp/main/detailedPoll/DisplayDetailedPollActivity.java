@@ -27,7 +27,7 @@ public class DisplayDetailedPollActivity extends AppCompatActivity {
 
     private LinearLayout linearLayout;
     private Toast toastMessage;
-    private TextView questionTextView;
+    private TextView questionTextView, pollCreatedBy;
     private PollsModel pollsModel;
     private DisplayDetailedPollViewModel displayDetailedPollViewModel;
     private int position;
@@ -45,7 +45,10 @@ public class DisplayDetailedPollActivity extends AppCompatActivity {
 
 
         questionTextView = findViewById(R.id.question);
+        pollCreatedBy = findViewById(R.id.pollOwner);
+
         questionTextView.setText(pollsModel.getQuestion());
+        pollCreatedBy.setText("by "+pollsModel.getTeacherName());
 
         linearLayout = findViewById(R.id.parentOfOptionTextViews);
         linearLayout.setOrientation(LinearLayout.VERTICAL);

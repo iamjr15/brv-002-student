@@ -51,6 +51,7 @@ public class PollListAdapter extends RecyclerView.Adapter<PollListAdapter.ViewHo
         }
 
         holder.question.setText(pollsModel.getQuestion());
+        holder.nameOfPollOwner.setText("by "+pollsModel.getTeacherName());
         holder.itemView.setOnClickListener(onClickListener);
         holder.itemView.setTag(position);
     }
