@@ -42,18 +42,22 @@ public class PollListAdapter extends RecyclerView.Adapter<PollListAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PollsModel pollsModel = list.get(position);
 
+        holder.question.setText(pollsModel.getQuestion());
+        holder.nameOfPollOwner.setText("by "+pollsModel.getTeacherName());
+        holder.itemView.setTag(position);
+        holder.itemView.setOnClickListener(onClickListener);
+
         Log.d("waste123","isAnswered: "+pollsModel.isAnswered());
 
         if (pollsModel.isAnswered()){
             Log.d("waste123","True");
             holder.itemView.setEnabled(false);
             holder.constraintLayout.setBackgroundResource(R.drawable.disable_text_view_rounded_corner);
+        }else{
+            holder.itemView.setEnabled(true);
+            holder.constraintLayout.setBackgroundResource(R.drawable.text_view_rounded_corner);
         }
 
-        holder.question.setText(pollsModel.getQuestion());
-        holder.nameOfPollOwner.setText("by "+pollsModel.getTeacherName());
-        holder.itemView.setOnClickListener(onClickListener);
-        holder.itemView.setTag(position);
     }
 
     @Override

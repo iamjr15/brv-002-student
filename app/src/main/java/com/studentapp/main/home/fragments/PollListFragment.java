@@ -43,6 +43,7 @@ implements View.OnClickListener, OptionClickUpdate {
     private  ModelUser modelUser;
     private List<PollsModel> pollsModelList;
     private ProgressBar progressBar;
+    private List<String> pollIdList;
 
     public static PollListFragment getInstance(ModelUser modelUser){
 
@@ -125,10 +126,12 @@ implements View.OnClickListener, OptionClickUpdate {
     }
 
     public void getAllPollList(List<String> pollIdList){
+        this.pollIdList = pollIdList;
         pollListFragmentViewModel.getPollList(pollIdList,modelUser.getSchoolId())
                 .observe(this, new Observer<List<PollsModel>>() {
             @Override
             public void onChanged(List<PollsModel> pollsModels) {
+                Log.d("waste","getAllPollList: ");
                 pollsModelList = pollsModels;
                 pollListAdapter.updateList(pollsModels);
                 progressBar.setVisibility(View.GONE);
@@ -144,8 +147,14 @@ implements View.OnClickListener, OptionClickUpdate {
     }
 
     @Override
-    public void optionClickedSaved(PollsModel pollsModel, int position) {
-       pollsModelList.get(position).setAnswered(true);
-        pollListAdapter.updateList(pollsModelList);
+    public void optionClickedSaved() {
+        Log.d("waste","optionClickedSaved: ");
+        pollListFragmentViewModel.getPollList(pollIdList,modelUser.getSchoolId())
+                .observe(this, new Observer<List<PollsModel>>() {
+                    @Override
+                    public void onChanged(List<PollsModel> pollsModels) {
+                        pollListAdapter.updateList(pollsModels);
+                    }
+                });
     }
 }

@@ -63,6 +63,7 @@ public class HomeActivity extends AppCompatActivity implements
 
     private HomeViewModel homeViewModel;
     private String studentId, schoolId;
+    private int REQUEST_CODE =1;
     private ModelUser modelUser1;
 
     @Override
@@ -71,8 +72,6 @@ public class HomeActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_home);
 
         ButterKnife.bind(this);
-        //visibleHideProgressBar(true);
-
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
 
 
@@ -85,14 +84,6 @@ public class HomeActivity extends AppCompatActivity implements
         Log.d("waste","UserId: "+ Utils.getString(Constants.STUDENT_ID)+"SchoolId: "+Utils.getString(Constants.SCHOOL_ID));
         initializeViewModel(homeViewModel);
     }
-
-  /*  private void visibleHideProgressBar(boolean isVisible) {
-        if (isVisible) {
-            cpb.setVisibility(View.VISIBLE);
-        } else {
-            cpb.setVisibility(View.GONE);
-        }
-    }*/
 
     private void initializeViewModel(HomeViewModel viewModel){
         viewModel.getUserLiveData(schoolId,studentId).observe(this, new Observer<ModelUser>() {
@@ -166,7 +157,6 @@ public class HomeActivity extends AppCompatActivity implements
             prevMenuItem = bottomNavigationView.getMenu().getItem(position);
 
         LogUtils.Print(TAG, "onPageSelected:- " + position);
-//        setHeaderTitle(position, getBackStackCount());
 
     }
 
@@ -201,16 +191,16 @@ public class HomeActivity extends AppCompatActivity implements
         Intent intent = new Intent(this, DisplayDetailedPollActivity.class);
         intent.putExtra("data", data);
         intent.putExtra("position",position);
-        startActivityForResult(intent,1);
+        startActivityForResult(intent,REQUEST_CODE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        PollsModel pollsModel = (PollsModel) data.getSerializableExtra("answer");
-        int position = data.getIntExtra("position",-1);
-        //setupViewPager(vp,modelUser1);
 
-        pollListFragment.optionClickedSaved(pollsModel,position);
+        Log.d("waste","OnActivityResult: ");
+        Log.d("waste","RequestCode: "+requestCode);
+        Log.d("waste","ResultCode: "+resultCode);
+        pollListFragment.optionClickedSaved();
     }
 }
